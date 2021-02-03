@@ -3,6 +3,7 @@
 The rationale here is to compute a baseline accuracy of how well a pretrained CNN can perform on the dataset. However, these images are not included in AlexNet's outputs, so we have decided to use it's 4096-feature fully connected layer to generate our own simple classifier.  
 Here I am sending the images from our dataset through a pretrained alexnet, and pulling the values from the 4096-feature **fully connected** layer. These values are then put into a lower-dimensional embedding through a two-step principal component (PCA) then linear discriminant (LDA) reduction. A support vector machine (SVM) is then used for the final classification, with validation set used for reporting.  
 We are using the NWPU-RESISC45 dataset (Northwest Polytechnic Institute: REmote Sensing Image Scene Classification)1. We are using the first fifteen classes of environmental scenes, which includes 700 images per class for a total of 10500 image (our folder structure can be found in the zip file, but without image files to save memory.) All coding is done in python using pytorch and the scikit-learn packages.  
+![alt text](https://github.com/alailink/pytorch_tripletloss/blob/main/images/problem1.png)  
 [For code please click here.](https://github.com/alailink/pytorch_tripletloss/blob/main/code/Problem1-pretrainedAlex.py) As an overview, here is the architecture of AlexNet:  
 ```python
 AlexNet(
@@ -36,3 +37,9 @@ AlexNet(
 **The final baseline accuracy is 87%.**  
 
 # Problem 1b - transfer learning from AlexNet
+I thought it would be interesting to train the model for a few epochs using transfer learning. This involves 2-3 epochs of updating AlexNet features to be more specific to my dataset, modifying it's underlying weights by a small amount. I then used a similar low-dimensional PCA and LDA embedding for the final classification. This increased the accuracy by 5% for a total of 92%. [See code here.](https://github.com/alailink/pytorch_tripletloss/blob/main/code/Problem1-transferAlex.py)  
+
+| Method  | Accuracy (Validation Set) |
+| ------------- | ------------- |
+| Pre-trained AlexNet Baseline -> LDA  | 87.0%  |
+| Transfer Learning Alexnet -> LDA  | 92.1%  |
