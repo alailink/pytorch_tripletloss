@@ -1,10 +1,10 @@
-# Problem 2 - Claynet
+# Problem 2 - UserNet
 
 In this problem, I design a SoftMax loss network with 4 conv layers of 64 3x3 filters each followed by 2 full connection layers to be connected with SoftMax layer, and report validation accuracy.  
 ![alt text](https://github.com/alailink/pytorch_tripletloss/blob/main/images/problem2_net.png)  
 Very similar to problem 1, except in this problem a simpler, unique architecture was used:  
 ```python
-ClayNet(
+UserNet(
   (features): Sequential(
     (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(4, 4), padding=(2, 2))
     (1): ReLU(inplace)
