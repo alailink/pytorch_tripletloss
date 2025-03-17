@@ -65,10 +65,10 @@ if __name__ == "__main__":
     ### Net  Initialization ###
     ###########################
     
-    class ClayNet(nn.Module):
+    class UserNet(nn.Module):
     
         def __init__(self, num_classes=45):
-            super(ClayNet, self).__init__()
+            super(UserNet, self).__init__()
             self.features = nn.Sequential(
                 nn.Conv2d(3, 64, kernel_size=3, stride=4, padding=2), #convolution layer 1. Input channels = 3 (RGB)
                 nn.ReLU(inplace=True),
@@ -108,12 +108,12 @@ if __name__ == "__main__":
     epochs = 50
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") #device = torch.device("cpu")
-    model = ClayNet(num_classes=15)
+    model = UserNet(num_classes=15)
     model = model.to(device)
     ce_loss = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr, momentum, weight_decay)
     validation_scores = np.empty(epochs)
-    model.load_state_dict(torch.load("Claynet_model.pth"))
+    model.load_state_dict(torch.load("Usernet_model.pth"))
     #######################
     ### Training Setup #### 
     #######################
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1) # Decay LR by a factor of 0.1 every 7 epochs
     model = train_model(model, ce_loss, optimizer, exp_lr_scheduler,num_epochs=epochs)
-    torch.save(model.state_dict(), "Claynet_model.pth")
+    torch.save(model.state_dict(), "Usernet_model.pth")
     
     
     #######################
